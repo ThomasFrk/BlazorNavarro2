@@ -13,21 +13,43 @@
     </Addon>
 </Addons>
 
-<ol>
+<Table Striped="true">
+    <TableHeader>
+        <TableRow>
+            <TableHeaderCell>#</TableHeaderCell> 
+            <TableHeaderCell>ToDo</TableHeaderCell>   
+            <TableHeaderCell>Feito</TableHeaderCell>    
+        </TableRow>
+    </TableHeader>
+    <TableBody>
+        
+            
 
-@foreach (var item in listaTodo)
-{
-    <li>
+            @foreach (var item in listaTodo)
+            {
+                
+                    <TableRow>
+                
+                    <TableRowCell><input type="checkbox" @bind="item.feito"></TableRowCell>
 
-    <input type="checkbox" @bind="item.feito">
+                    <TableRowCell><input @bind="item.titulo"/></TableRowCell>
 
-    <input @bind="item.titulo"/>
+                    <TableRowCell>@addFeito(item.feito)</TableRowCell>
+
+                    </TableRow>
+
+                
+            }
+
+                   
+        
+    </TableBody>
+</Table>
 
 
-    </li>
-}
+            
 
-</ol>
+
 
 
 @code{
@@ -35,6 +57,14 @@
     private IList<Afazer2> listaTodo = new List<Afazer2>();
 
     public string newTodo;
+
+    private string addFeito(bool done){
+
+        if(done==true){
+            return "Feito";
+        }
+        return "";
+    }
 
     private void AddTask(){
         listaTodo.Add(new Afazer2 {titulo = newTodo});
